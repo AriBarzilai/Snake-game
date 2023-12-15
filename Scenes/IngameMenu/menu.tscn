@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=3 uid="uid://c1bhjq8t8rgmg"]
 
-[ext_resource type="Shader" path="res://Scenes/menu.gdshader" id="1_1ump2"]
+[ext_resource type="Shader" path="res://Scenes/IngameMenu/menu.gdshader" id="1_1ump2"]
 [ext_resource type="Script" path="res://Scenes/IngameMenu/menu.gd" id="1_nso2r"]
 [ext_resource type="Script" path="res://Scenes/IngameMenu/Quit.gd" id="3_1jf0p"]
 [ext_resource type="Texture2D" uid="uid://dm42xj2w3xxuj" path="res://Graphics/GUI/sound-on.png" id="3_ejfct"]
