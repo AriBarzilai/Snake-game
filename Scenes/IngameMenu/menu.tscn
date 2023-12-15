@@ -1,0 +1,160 @@
+[gd_scene load_steps=16 format=3 uid="uid://c1bhjq8t8rgmg"]
+
+[ext_resource type="Shader" path="res://Scenes/menu.gdshader" id="1_1ump2"]
+[ext_resource type="Script" path="res://Scenes/IngameMenu/menu.gd" id="1_nso2r"]
+[ext_resource type="Script" path="res://Scenes/IngameMenu/Quit.gd" id="3_1jf0p"]
+[ext_resource type="Texture2D" uid="uid://dm42xj2w3xxuj" path="res://Graphics/GUI/sound-on.png" id="3_ejfct"]
+[ext_resource type="Texture2D" uid="uid://b8tliwhs7x406" path="res://Graphics/GUI/speaker.png" id="3_jn30m"]
+[ext_resource type="Texture2D" uid="uid://biamfh24n7fs8" path="res://Graphics/GUI/sound-off.png" id="4_3ivwp"]
+[ext_resource type="Texture2D" uid="uid://bwca0csre0uue" path="res://Graphics/GUI/speaker-off.png" id="4_5fdqw"]
+[ext_resource type="Script" path="res://Scenes/IngameMenu/Play.gd" id="4_em67t"]
+[ext_resource type="Script" path="res://Scenes/IngameMenu/MusicButton.gd" id="5_8m7mm"]
+[ext_resource type="Script" path="res://Scenes/IngameMenu/SoundButton.gd" id="8_xjrcf"]
+[ext_resource type="Script" path="res://Scenes/IngameMenu/GoToMainMenu.gd" id="10_5m3mc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2u33m"]
+shader = ExtResource("1_1ump2")
+shader_parameter/amount = 3.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t1i75"]
+bg_color = Color(0, 0.207843, 0.0627451, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_cwyat"]
+font_size = 22
+outline_size = 11
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="GDScript" id="GDScript_8jgbb"]
+script/source = "extends Label
+
+@onready var global = Global
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta):
+	self.text = \"Score: \" + str(global.score);
+	pass
+"
+
+[node name="IngameMenu" type="Control"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_nso2r")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_2u33m")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -400.0
+offset_right = 400.0
+offset_bottom = 400.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -125.0
+offset_right = 100.0
+offset_bottom = 125.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_t1i75")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -83.0
+offset_top = -63.0
+offset_right = 83.0
+offset_bottom = 63.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="MenuTitle" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "PAUSE MENU"
+label_settings = SubResource("LabelSettings_cwyat")
+horizontal_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "SCORE: 0"
+horizontal_alignment = 1
+script = SubResource("GDScript_8jgbb")
+
+[node name="AudioContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer/AudioContainer"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+
+[node name="MusicButton" type="TextureButton" parent="Panel/MarginContainer/VBoxContainer/AudioContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+toggle_mode = true
+texture_normal = ExtResource("3_ejfct")
+texture_pressed = ExtResource("4_3ivwp")
+script = ExtResource("5_8m7mm")
+
+[node name="SoundButton" type="TextureButton" parent="Panel/MarginContainer/VBoxContainer/AudioContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+toggle_mode = true
+texture_normal = ExtResource("3_jn30m")
+texture_pressed = ExtResource("4_5fdqw")
+script = ExtResource("8_xjrcf")
+
+[node name="Play" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Resume"
+script = ExtResource("4_em67t")
+
+[node name="GoToMainMenu" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Main Menu"
+script = ExtResource("10_5m3mc")
+
+[node name="Quit" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Quit"
+script = ExtResource("3_1jf0p")
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/AudioContainer/MarginContainer/MusicButton" to="Panel/MarginContainer/VBoxContainer/AudioContainer/MarginContainer/MusicButton" method="_on_pressed"]
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/AudioContainer/MarginContainer/SoundButton" to="Panel/MarginContainer/VBoxContainer/AudioContainer/MarginContainer/SoundButton" method="_on_pressed"]
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/GoToMainMenu" to="Panel/MarginContainer/VBoxContainer/GoToMainMenu" method="_on_pressed"]

@@ -1,0 +1,142 @@
+[gd_scene load_steps=15 format=3 uid="uid://b546ro4ehnvwn"]
+
+[ext_resource type="VideoStream" path="res://Graphics/video.ogv" id="1_4d076"]
+[ext_resource type="Script" path="res://Scenes/MainMenu/main_menu.gd" id="1_v3tb6"]
+[ext_resource type="Script" path="res://Scenes/VideoStreamPlayer.gd" id="2_44lrw"]
+[ext_resource type="StyleBox" uid="uid://baflgenwr1q46" path="res://Styles/button.tres" id="3_5l0s8"]
+[ext_resource type="StyleBox" uid="uid://bhw8eosx8eudj" path="res://Styles/buttonHover.tres" id="4_ftnww"]
+[ext_resource type="StyleBox" uid="uid://blc1u644xyvg1" path="res://Styles/buttonPress.tres" id="5_tr7s7"]
+[ext_resource type="Script" path="res://Scenes/MainMenu/QuitButton.gd" id="5_uwq7j"]
+[ext_resource type="Script" path="res://Scenes/MainMenu/PlayButton.gd" id="6_wvakk"]
+[ext_resource type="Script" path="res://Scenes/MainMenu/SettingsButton.gd" id="7_0xe6h"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ffij2"]
+font_size = 30
+outline_size = 5
+outline_color = Color(0.168627, 0.0470588, 0.00392157, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_41ug3"]
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hiyeb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7kpjf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7jxvv"]
+
+[node name="MainMenu" type="Control"]
+custom_minimum_size = Vector2(800, 800)
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -20.0
+offset_right = 400.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_v3tb6")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(500, 800)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -400.0
+offset_right = 400.0
+offset_bottom = 400.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="MarginContainer/Panel"]
+layout_mode = 2
+offset_right = 800.0
+offset_bottom = 800.0
+stream = ExtResource("1_4d076")
+autoplay = true
+script = ExtResource("2_44lrw")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -400.0
+offset_right = 250.0
+offset_bottom = 400.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 27
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Empty Separation Panel" type="Label" parent="MarginContainer/Panel/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Empty Separation Panel2" type="Label" parent="MarginContainer/Panel/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Menu Title" type="Label" parent="MarginContainer/Panel/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Dragon Snake - The Game"
+label_settings = SubResource("LabelSettings_ffij2")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Developed  By" type="Label" parent="MarginContainer/Panel/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Developed by Ari Barzilai"
+label_settings = SubResource("LabelSettings_41ug3")
+horizontal_alignment = 1
+
+[node name="Empty Separation Space" type="Label" parent="MarginContainer/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 2
+
+[node name="PlayButton" type="Button" parent="MarginContainer/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/normal = ExtResource("3_5l0s8")
+theme_override_styles/hover = ExtResource("4_ftnww")
+theme_override_styles/pressed = ExtResource("5_tr7s7")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_hiyeb")
+text = "Play
+"
+script = ExtResource("6_wvakk")
+
+[node name="SettingsButton" type="Button" parent="MarginContainer/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/normal = ExtResource("3_5l0s8")
+theme_override_styles/hover = ExtResource("4_ftnww")
+theme_override_styles/pressed = ExtResource("5_tr7s7")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_7kpjf")
+text = "Settings"
+script = ExtResource("7_0xe6h")
+
+[node name="QuitButton" type="Button" parent="MarginContainer/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/normal = ExtResource("3_5l0s8")
+theme_override_styles/hover = ExtResource("4_ftnww")
+theme_override_styles/pressed = ExtResource("5_tr7s7")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_7jxvv")
+text = "Quit"
+script = ExtResource("5_uwq7j")
+
+[connection signal="finished" from="MarginContainer/Panel/VideoStreamPlayer" to="MarginContainer/Panel/VideoStreamPlayer" method="_on_finished"]
+[connection signal="pressed" from="MarginContainer/Panel/VBoxContainer/PlayButton" to="MarginContainer/Panel/VBoxContainer/PlayButton" method="_on_pressed"]
+[connection signal="pressed" from="MarginContainer/Panel/VBoxContainer/SettingsButton" to="MarginContainer/Panel/VBoxContainer/SettingsButton" method="_on_pressed"]
+[connection signal="pressed" from="MarginContainer/Panel/VBoxContainer/QuitButton" to="MarginContainer/Panel/VBoxContainer/QuitButton" method="_on_pressed"]
