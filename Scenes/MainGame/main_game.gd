@@ -4,7 +4,6 @@ extends Node
 enum Direction {UP, DOWN, LEFT, RIGHT}
 @onready var menu = $IngameMenu
 @onready var map = $TileMap
-@onready var global = $"/root/Global"
 signal game_over
 
 # GAME VARIABLES
@@ -22,7 +21,7 @@ func _ready():
 	initSnake()
 	applePos = Vector2i(randi_range(10,19),randi_range(10,19))
 	map.set_cell(1,applePos,1,Vector2i.ZERO)
-	Engine.time_scale = global.gameSpeed
+	Engine.time_scale = Global.gameSpeed
 	print("Game Start!")
 	print("SPAWN APPLE #1: " + str(applePos))
 	pass # Replace with function body.
@@ -50,7 +49,7 @@ func initSnake():
 func _process(delta):
 	if(deltaCount > 0.06):
 		moveSnake()
-		global.score += global.scoreMultiplier
+		Global.score += Global.scoreMultiplier
 		deltaCount = 0.0
 	deltaCount += delta
 	pass
@@ -88,7 +87,7 @@ func generateApple():
 		newPos = Vector2i(randi_range(0,19),randi_range(0,19))
 	applePos = newPos
 	map.set_cell(1,applePos,1,Vector2i.ZERO)
-	print("SPAWN APPLE #" + str(global.scoreMultiplier+1) + ": " + str(applePos))
+	print("SPAWN APPLE #" + str(Global.scoreMultiplier+1) + ": " + str(applePos))
 		
 # Moves the snake according to the current direction
 func moveSnake():
@@ -133,8 +132,8 @@ func moveSnake():
 			
 	if (newPos == applePos): # if snake has eaten an apple
 		canGrow = true
-		global.score += 50
-		global.scoreMultiplier += 1
+		Global.score += 50
+		Global.scoreMultiplier += 1
 		$eatAppleNoise.play()
 		generateApple()
 	
