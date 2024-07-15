@@ -8,7 +8,8 @@ signal game_over
 
 # GAME VARIABLES
 var deltaCount = 0.0
-var applePos
+var applePos = [] # contains the positions of apples on screen
+var originalApplePos # the only apple to regenerate another apple
 
 # PLAYER VARIABLES
 var snakePos = [] # contains the position of all the cells of the snake; is treated as a queue
@@ -19,8 +20,9 @@ var canGrow = false # is set to true after snake eats a fruit, and set back to f
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	initSnake()
-	applePos = Vector2i(randi_range(10,19),randi_range(10,19))
-	map.set_cell(1,applePos,1,Vector2i.ZERO)
+	originalApplePos = Vector2i(randi_range(10,19),randi_range(10,19))
+	applePos.append(originalApplePos)
+	map.set_cell(1,originalApplePos,1,Vector2i.ZERO)
 	Engine.time_scale = Global.gameSpeed
 	print("Game Start!")
 	print("SPAWN APPLE #1: " + str(applePos))
@@ -62,6 +64,11 @@ func _input(event):
 			menu.show()
 			
 	if (!menu.visible):
+		# cheat mode:
+		#if event.is_action_pressed("ui_godmode"):
+		#	var apples_to_generate = (400 - len(snakeDirection))/6
+		#	for i in range(apples_to_generate):
+		#		generateApple(true)
 		if event.is_action_pressed("ui_up"):
 			addDirection(Direction.UP)
 		if event.is_action_pressed("ui_down"):
@@ -81,13 +88,17 @@ func addDirection(direction):
 	if len(nextDirections) > 3:
 		nextDirections.pop_back()
 		
-func generateApple():
+func generateApple(isDuplicate):
 	var newPos = Vector2i(randi_range(0,19),randi_range(0,19))
-	while (snakePos.has(newPos) || applePos == newPos):
+	while (snakePos.has(newPos) || applePos.has(newPos)):
 		newPos = Vector2i(randi_range(0,19),randi_range(0,19))
-	applePos = newPos
-	map.set_cell(1,applePos,1,Vector2i.ZERO)
-	print("SPAWN APPLE #" + str(Global.scoreMultiplier+1) + ": " + str(applePos))
+	applePos.append(newPos)
+	if isDuplicate:
+		map.set_cell(1,newPos,3,Vector2i.ZERO)
+	else:
+		map.set_cell(1,newPos,1,Vector2i.ZERO)
+		originalApplePos = newPos
+	print("SPAWN APPLE #" + str(Global.scoreMultiplier+1) + ": " + str(newPos))
 		
 # Moves the snake according to the current direction
 func moveSnake():
@@ -129,13 +140,15 @@ func moveSnake():
 			map.set_cell(1,newPos,0,Vector2i(3,1))
 		Direction.RIGHT:
 			map.set_cell(1,newPos,0,Vector2i(2,0))
-			
-	if (newPos == applePos): # if snake has eaten an apple
+	var apple_index = applePos.find(newPos)		
+	if (apple_index != -1): # if snake has eaten an apple
 		canGrow = true
 		Global.score += 50
 		Global.scoreMultiplier += 1
 		$eatAppleNoise.play()
-		generateApple()
+		if (applePos[apple_index] == originalApplePos):
+			generateApple(false)
+		applePos.remove_at(apple_index)
 	
 	# UPDATE OLD HEAD POSITION (replace with body cell)
 	# takes into account corner cells
