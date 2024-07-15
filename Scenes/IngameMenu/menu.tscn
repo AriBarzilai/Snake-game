@@ -124,6 +124,9 @@ size_flags_horizontal = 6
 [node name="MusicButton" type="TextureButton" parent="Panel/MarginContainer/VBoxContainer/AudioContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
+focus_neighbor_top = NodePath("../../../Quit")
+focus_neighbor_right = NodePath("../SoundButton")
+focus_neighbor_bottom = NodePath("../../../Play")
 toggle_mode = true
 texture_normal = ExtResource("3_ejfct")
 texture_pressed = ExtResource("4_3ivwp")
@@ -132,6 +135,9 @@ script = ExtResource("5_8m7mm")
 [node name="SoundButton" type="TextureButton" parent="Panel/MarginContainer/VBoxContainer/AudioContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
+focus_neighbor_left = NodePath("../MusicButton")
+focus_neighbor_top = NodePath("../../../Quit")
+focus_neighbor_bottom = NodePath("../../../Play")
 toggle_mode = true
 texture_normal = ExtResource("3_jn30m")
 texture_pressed = ExtResource("4_5fdqw")
@@ -139,16 +145,22 @@ script = ExtResource("8_xjrcf")
 
 [node name="Play" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../Quit")
+focus_neighbor_bottom = NodePath("../GoToMainMenu")
 text = "Resume"
 script = ExtResource("4_em67t")
 
 [node name="GoToMainMenu" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../Play")
+focus_neighbor_bottom = NodePath("../Quit")
 text = "Main Menu"
 script = ExtResource("10_5m3mc")
 
 [node name="Quit" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../GoToMainMenu")
+focus_neighbor_bottom = NodePath("../Play")
 text = "Quit"
 script = ExtResource("3_1jf0p")
 

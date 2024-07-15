@@ -9,13 +9,9 @@ var music = "Music"
 var sound = "Sound"
 
 #### GLOBAL SAVED VALUES
-var gameSpeed : float = getConfigValue("gameSpeed",1.0)
+var gameSpeed := 0.7
 # determines whether player can collide with game boundaries or loop to the other side 
-var wraparound : bool = getConfigValue("wrapAround",false)
-var musicVolume : float = getConfigValue("musicVolume", 1)
-var musicIsMuted : bool = getConfigValue("musicMute", false)
-var soundVolume : float = getConfigValue("soundVolume", 1)
-var soundIsMuted : bool = getConfigValue("soundMute", false)
+var wraparound := true
 
 #### GLOBAL UNSAVED VALUES
 var score := 0.0

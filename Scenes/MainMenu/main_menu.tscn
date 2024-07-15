@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://b546ro4ehnvwn"]
+[gd_scene load_steps=12 format=3 uid="uid://b546ro4ehnvwn"]
 
 [ext_resource type="VideoStream" path="res://Graphics/video.ogv" id="1_4d076"]
 [ext_resource type="Script" path="res://Scenes/MainMenu/main_menu.gd" id="1_v3tb6"]
@@ -18,12 +18,6 @@ outline_color = Color(0.168627, 0.0470588, 0.00392157, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_41ug3"]
 outline_size = 4
 outline_color = Color(0, 0, 0, 1)
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hiyeb"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7kpjf"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7jxvv"]
 
 [node name="MainMenu" type="Control"]
 custom_minimum_size = Vector2(800, 800)
@@ -110,29 +104,35 @@ layout_mode = 2
 
 [node name="PlayButton" type="Button" parent="MarginContainer/Panel/VBoxContainer"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../QuitButton")
+focus_neighbor_bottom = NodePath("../SettingsButton")
 theme_override_styles/normal = ExtResource("3_5l0s8")
 theme_override_styles/hover = ExtResource("4_ftnww")
 theme_override_styles/pressed = ExtResource("5_tr7s7")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_hiyeb")
+theme_override_styles/focus = ExtResource("4_ftnww")
 text = "Play
 "
 script = ExtResource("6_wvakk")
 
 [node name="SettingsButton" type="Button" parent="MarginContainer/Panel/VBoxContainer"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../PlayButton")
+focus_neighbor_bottom = NodePath("../QuitButton")
 theme_override_styles/normal = ExtResource("3_5l0s8")
 theme_override_styles/hover = ExtResource("4_ftnww")
 theme_override_styles/pressed = ExtResource("5_tr7s7")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_7kpjf")
+theme_override_styles/focus = ExtResource("4_ftnww")
 text = "Settings"
 script = ExtResource("7_0xe6h")
 
 [node name="QuitButton" type="Button" parent="MarginContainer/Panel/VBoxContainer"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../SettingsButton")
+focus_neighbor_bottom = NodePath("../PlayButton")
 theme_override_styles/normal = ExtResource("3_5l0s8")
 theme_override_styles/hover = ExtResource("4_ftnww")
 theme_override_styles/pressed = ExtResource("5_tr7s7")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_7jxvv")
+theme_override_styles/focus = ExtResource("4_ftnww")
 text = "Quit"
 script = ExtResource("5_uwq7j")
 

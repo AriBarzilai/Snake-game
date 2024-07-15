@@ -26,4 +26,15 @@ func _on_visibility_changed():
 		Engine.time_scale = gameSpeed
 		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	pass # Replace with function body.
+	
+func _input(event):
+	if(self.visible):
+		if event.is_action_pressed("ui_up"):
+			if get_viewport().gui_get_focus_owner() == null:
+				playButton.grab_focus()
+			print("UI SELECT: " + get_viewport().gui_get_focus_owner().get_focus_neighbor(SIDE_TOP).get_name(1))
+		elif event.is_action_pressed("ui_down"):
+			if get_viewport().gui_get_focus_owner() == null:
+				playButton.grab_focus()
+			print("UI SELECT: " + get_viewport().gui_get_focus_owner().get_focus_neighbor(SIDE_BOTTOM).get_name(1))
 
