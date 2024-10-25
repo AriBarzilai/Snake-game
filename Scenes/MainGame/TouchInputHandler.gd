@@ -2,7 +2,7 @@ extends TouchScreenButton
 
 class_name SwipeScreenButton
 
-var on_area := false
+var is_swiping := false
 var swipe_margin := 4
 var keyPress := InputEventAction.new()
 
@@ -31,7 +31,7 @@ func _input(event):
 	if swipe.y >= -swipe_margin and swipe.y <= swipe_margin and swipe.x <= -swipe_margin:
 		keyPress.action = "ui_left"
 	
-	if on_area == true:
+	if is_swiping == true:
 		Input.parse_input_event(keyPress)
 
 	# Example of getting down left angle swipe
@@ -40,8 +40,8 @@ func _input(event):
 
 
 func _on_self_pressed():
-	on_area = true
+	is_swiping = true
 
 
 func _on_self_released():
-	on_area = false
+	is_swiping = false
