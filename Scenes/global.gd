@@ -14,6 +14,8 @@ var scoreMultiplier := 0.0
 func reset():
 	score = 0.0
 	scoreMultiplier = 0.0
-	
 
+var mobile := true	
+func _ready():
+	mobile = (OS.has_feature("web_android") or OS.has_feature("web_ios"))
 

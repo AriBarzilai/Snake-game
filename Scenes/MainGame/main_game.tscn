@@ -1,8 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://6htv5w1plm15"]
+[gd_scene load_steps=21 format=3 uid="uid://6htv5w1plm15"]
 
 [ext_resource type="Script" path="res://Scenes/MainGame/main_game.gd" id="1_7x5j1"]
 [ext_resource type="Texture2D" uid="uid://bsjybr3saxrqi" path="res://Graphics/GameSprites/Snake_spritesheet.png" id="1_tt7ya"]
 [ext_resource type="Texture2D" uid="uid://bhi2h477ykjm8" path="res://Graphics/GameSprites/apple.png" id="2_qgril"]
+[ext_resource type="Script" path="res://Scenes/MainGame/TouchInputHandler.gd" id="2_xm1ma"]
 [ext_resource type="Texture2D" uid="uid://cgslab8qckoqy" path="res://Graphics/GameSprites/grass.png" id="3_vwkjc"]
 [ext_resource type="PackedScene" uid="uid://c1bhjq8t8rgmg" path="res://Scenes/IngameMenu/menu.tscn" id="5_1bvtv"]
 [ext_resource type="Texture2D" uid="uid://csnxbmsqisihl" path="res://Graphics/GameSprites/orange.png" id="5_qgb0n"]
@@ -12,6 +13,9 @@
 [ext_resource type="AudioStream" uid="uid://trnln55ll6su" path="res://Sound/hitWall.wav" id="8_ybxt1"]
 [ext_resource type="AudioStream" uid="uid://b2apcnitsraom" path="res://Sound/hitSnake.wav" id="9_nb67b"]
 [ext_resource type="Script" path="res://Scenes/MainGame/ScoreOverlay.gd" id="11_bqfco"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0rp6n"]
+size = Vector2(2000, 2000)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1lc44"]
 texture = ExtResource("1_tt7ya")
@@ -68,6 +72,11 @@ shadow_color = Color(0, 0, 0, 0.670588)
 [node name="MainGame" type="Node" groups=["gameover_group"]]
 script = ExtResource("1_7x5j1")
 
+[node name="SwipeScreenButton" type="TouchScreenButton" parent="."]
+position = Vector2(400, 400)
+shape = SubResource("RectangleShape2D_0rp6n")
+script = ExtResource("2_xm1ma")
+
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_ft8vu")
 rendering_quadrant_size = 40
@@ -107,6 +116,9 @@ offset_bottom = 23.0
 text = "Score: 0"
 label_settings = SubResource("LabelSettings_otyk5")
 script = ExtResource("11_bqfco")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(400, 400)
 
 [connection signal="game_over" from="." to="IngameMenu" method="_on_main_game_game_over"]
 [connection signal="visibility_changed" from="IngameMenu" to="soundtrack" method="_on_menu_visibility_changed"]

@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://b546ro4ehnvwn"]
+[gd_scene load_steps=13 format=3 uid="uid://b546ro4ehnvwn"]
 
 [ext_resource type="VideoStream" path="res://Graphics/video.ogv" id="1_4d076"]
 [ext_resource type="Script" path="res://Scenes/MainMenu/main_menu.gd" id="1_v3tb6"]
 [ext_resource type="Script" path="res://Scenes/VideoStreamPlayer.gd" id="2_44lrw"]
 [ext_resource type="StyleBox" uid="uid://baflgenwr1q46" path="res://Styles/button.tres" id="3_5l0s8"]
 [ext_resource type="StyleBox" uid="uid://bhw8eosx8eudj" path="res://Styles/buttonHover.tres" id="4_ftnww"]
+[ext_resource type="Script" path="res://Scenes/MainMenu/MobileCheck.gd" id="4_qigxe"]
 [ext_resource type="StyleBox" uid="uid://blc1u644xyvg1" path="res://Styles/buttonPress.tres" id="5_tr7s7"]
 [ext_resource type="Script" path="res://Scenes/MainMenu/QuitButton.gd" id="5_uwq7j"]
 [ext_resource type="Script" path="res://Scenes/MainMenu/PlayButton.gd" id="6_wvakk"]
@@ -91,6 +92,15 @@ text = "Dragon Snake - The Game"
 label_settings = SubResource("LabelSettings_ffij2")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="MobileCheck" type="Label" parent="MarginContainer/Panel/VBoxContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+text = "(Mobile Version)"
+label_settings = SubResource("LabelSettings_ffij2")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("4_qigxe")
 
 [node name="Developed  By" type="Label" parent="MarginContainer/Panel/VBoxContainer/VBoxContainer"]
 layout_mode = 2
